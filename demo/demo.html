@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Aquamarine</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="colorpicker">
+    <div class="preview" data-aquamarine="preview"></div>
+    <div class="hsv colorspace">
+      <div class="input-group">
+        <label class="label" for="hsv-h-text">H</label>
+        <div class="input-range-group">
+          <div class="track" data-aquamarine="track-hsv-h"></div>
+          <input class="input-range" tabindex="-1" type="range" data-aquamarine="hsv-h" value="" max="360">
+        </div>
+        <input class="input-text input-text-small" id="hsv-h-text" type="text" autocomplete="off" data-aquamarine="hsv-h" value="" min="0" max="360">
+      </div>
+      <div class="input-group">
+        <label class="label" for="hsv-s-text">S</label>
+        <div class="input-range-group">
+          <div class="track" data-aquamarine="track-hsv-s"></div>
+          <input class="input-range" tabindex="-1" type="range" data-aquamarine="hsv-s" value="" min="0" max="100">
+        </div>
+        <input class="input-text input-text-small" id="hsv-s-text" type="text" autocomplete="off" data-aquamarine="hsv-s" value="" min="0" max="100">
+      </div>
+      <div class="input-group">
+        <label class="label" for="hsv-v-text">B</label>
+        <div class="input-range-group">
+          <div class="track" data-aquamarine="track-hsv-v"></div>
+          <input class="input-range" tabindex="-1" type="range" data-aquamarine="hsv-v" value="" min="0" max="100">
+        </div>
+        <input class="input-text input-text-small" id="hsv-v-text" type="text" autocomplete="off" data-aquamarine="hsv-v" value="" min="0" max="100">
+      </div>
+      <div class="input-group">
+        <label class="label" for="hex-text">#</label>
+        <input class="input-text input-text-medium" type="text" autocomplete="off" data-aquamarine="hex" value="">
+      </div>
+    </div>
+  </div>
+  <script src="tinycolor.js"></script>
+  <script src="aquamarine.js"></script>
+  <script>
+    var colorpicker = new Aquamarine("hsv(212, 85%, 100%)");
+  </script>
+</body>
+</html>
