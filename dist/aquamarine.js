@@ -1,5 +1,7 @@
-(function() {
+/* Version 0.10 */
 
+(function() {
+  
   //todo: remove elements
 
   function Aquamarine(arg) {
