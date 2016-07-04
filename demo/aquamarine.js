@@ -2,8 +2,6 @@
 
 (function() {
 
-  //todo: remove elements
-
   function Aquamarine(arg) {
     this.data = format(arg) ? merge({ color: arg }, settings()) : merge(arg, settings());
     this.data.input = iterateQuerySelectorAll(this.data.input);
@@ -11,28 +9,58 @@
     this.data.preview = iterateQuerySelectorAll(this.data.preview);
     this.color = color;
     this.color(this.data.color);
-    // collect(this.data.input).listen("input change", function() {
-    //   console.log(this)
-    // });
-    console.log(
-      collect(this.data.input)
-    )
-    // iterateElements(this.data.input, listen, "input change", input, this);
-    // iterateElements(this.data.input, listen, "focusout", function(self, element) { output(self) }, this);
-    // iterateElements(this.data.input.range, listen, "click change", function(self, element) { element.focus() }, false);
-    // iterateElements(this.data.input.text, listen, "keydown", arrowControl, false);
+    collect(this.data.input).listen("input change", function() { console.log('it works') })
+  }
+  
+  function Collection() {
+    this.elements = [];
+    this.listen = listen;
   }
 
-  var collect = function(object) {
-    var result = [];
+  function collect(object) {
+    var result = new Collection();
     if (isElement(object))
-      result.push(object);
+      result.elements.push(object);
     else if (typeof object === 'object' && object !== null)
       for (var prop in object)
-        result = object.hasOwnProperty(prop) ? weave(result, collect(object[prop])) : result;
+        result.elements = object.hasOwnProperty(prop) ? weave(result.elements, collect(object[prop]).elements) : result.elements;
     else
       return [];
     return result;
+  }
+
+  function listen(events, handler) {
+    elements = this.elements;
+    events.split(" ").forEach(function(event) {
+      elements.forEach(function(element) {
+        element.addEventListener(event, handler)
+      });
+    });
+  }
+
+  function input(self, element) {
+    var value = element.value;
+    if (matches(element, self.data.input.hex))
+      self.color("#" + value);
+    else if (matches(element, self.data.input.rgb.r))
+      self.color(r(self.rgb, value));
+    else if (matches(element, self.data.input.rgb.g))
+      self.color(g(self.rgb, value));
+    else if (matches(element, self.data.input.rgb.b))
+      self.color(b(self.rgb, value));
+    else if (matches(element, self.data.input.hsv.h))
+      self.color(h(self.hsv, value));
+    else if (matches(element, self.data.input.hsv.s))
+      self.color(s(self.hsv, value));
+    else if (matches(element, self.data.input.hsv.v))
+      self.color(v(self.hsv, value));
+    else if (matches(element, self.data.input.hsl.h))
+      self.color(h(self.hsl, value));
+    else if (matches(element, self.data.input.hsl.s))
+      self.color(s(self.hsl, value));
+    else if (matches(element, self.data.input.hsl.l))
+      self.color(l(self.hsl, value));
+    return value;
   }
 
   function arrowControl(temp, element, event) {
@@ -327,31 +355,6 @@
     gradient += ")";
     return gradient; 
   };
-
-  function input(self, element) {
-    var value = element.value;
-    if (matches(element, self.data.input.hex))
-      self.color("#" + value);
-    else if (matches(element, self.data.input.rgb.r))
-      self.color(r(self.rgb, value));
-    else if (matches(element, self.data.input.rgb.g))
-      self.color(g(self.rgb, value));
-    else if (matches(element, self.data.input.rgb.b))
-      self.color(b(self.rgb, value));
-    else if (matches(element, self.data.input.hsv.h))
-      self.color(h(self.hsv, value));
-    else if (matches(element, self.data.input.hsv.s))
-      self.color(s(self.hsv, value));
-    else if (matches(element, self.data.input.hsv.v))
-      self.color(v(self.hsv, value));
-    else if (matches(element, self.data.input.hsl.h))
-      self.color(h(self.hsl, value));
-    else if (matches(element, self.data.input.hsl.s))
-      self.color(s(self.hsl, value));
-    else if (matches(element, self.data.input.hsl.l))
-      self.color(l(self.hsl, value));
-    return value;
-  }
 
   function matches(element, nodeList) {
     var i = NodeList.prototype.isPrototypeOf(nodeList) ? nodeList.length : -1;
