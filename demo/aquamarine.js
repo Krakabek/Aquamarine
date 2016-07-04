@@ -17,10 +17,10 @@
     console.log(
       collect(this.data.input)
     )
-    // iterateElements(this.data.input, addEventListener, "input change", input, this);
-    // iterateElements(this.data.input, addEventListener, "focusout", function(self, element) { output(self) }, this);
-    // iterateElements(this.data.input.range, addEventListener, "click change", function(self, element) { element.focus() }, false);
-    // iterateElements(this.data.input.text, addEventListener, "keydown", arrowControl, false);
+    // iterateElements(this.data.input, listen, "input change", input, this);
+    // iterateElements(this.data.input, listen, "focusout", function(self, element) { output(self) }, this);
+    // iterateElements(this.data.input.range, listen, "click change", function(self, element) { element.focus() }, false);
+    // iterateElements(this.data.input.text, listen, "keydown", arrowControl, false);
   }
 
   var collect = function(object) {
@@ -29,7 +29,7 @@
       result.push(object);
     else if (typeof object === 'object' && object !== null)
       for (var prop in object)
-        result = object.hasOwnProperty(prop) ? createFlatArray(result, collect(object[prop])) : result;
+        result = object.hasOwnProperty(prop) ? weave(result, collect(object[prop])) : result;
     else
       return [];
     return result;
@@ -391,20 +391,20 @@
 
   /*
   // Adds one or more event listeners, e.g. "change input focusout"
-  function addEventListener(events, handler, handlerArgs, element) {
+  function listen(events, handler, handlerArgs, element) {
     events.split(" ").forEach(function(event) {
-      element.addEventListener(event, function(event) {
-        handler.apply(null, createFlatArray(handlerArgs, element, event));
+      element.listen(event, function(event) {
+        handler.apply(null, weave(handlerArgs, element, event));
       });
     });
   }
   */
   
   // Removes one or more event listeners. "events" argument should be either string or an array of strings
-  function removeEventListener(events, handler, handlerArgs, element) {
+  function mute(events, handler, handlerArgs, element) {
     events.split(" ").forEach(function(event) {
-      element.removeEventListener(event, function() {
-        handler.apply(null, createFlatArray(handlerArgs, element, event));
+      element.mute(event, function() {
+        handler.apply(null, weave(handlerArgs, element, event));
       });
     });
   }
@@ -419,7 +419,7 @@
     else for (var i = 2; i < arguments.length; i++)
       handlerArgs._args.push(arguments[i]);
     if (isElement(object))
-      handler.apply(null, createFlatArray(handlerArgs._args, object));     
+      handler.apply(null, weave(handlerArgs._args, object));     
     else if (typeof object === 'object')
       for (var prop in object)
         iterateElements(object[prop], handler, handlerArgs);
@@ -429,7 +429,7 @@
   // Creates a flat array from multiple arrays and / or primitives. Keeps subarrays.
   // 1, 2, 3 -> [1, 2, 3]
   // [1, 2, [3, 4, 5]], 6, 7, [8, 9] -> [1, 2, [3, 4, 5], 6, 7, 8, 9]
-  function createFlatArray() {
+  function weave() {
     var array = [];
     for (var i = 0; i < arguments.length; i++) {
       if (typeof arguments[i] !== "undefined") {
