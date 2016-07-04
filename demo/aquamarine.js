@@ -38,31 +38,6 @@
     });
   }
 
-  function input(self, element) {
-    var value = element.value;
-    if (matches(element, self.data.input.hex))
-      self.color("#" + value);
-    else if (matches(element, self.data.input.rgb.r))
-      self.color(r(self.rgb, value));
-    else if (matches(element, self.data.input.rgb.g))
-      self.color(g(self.rgb, value));
-    else if (matches(element, self.data.input.rgb.b))
-      self.color(b(self.rgb, value));
-    else if (matches(element, self.data.input.hsv.h))
-      self.color(h(self.hsv, value));
-    else if (matches(element, self.data.input.hsv.s))
-      self.color(s(self.hsv, value));
-    else if (matches(element, self.data.input.hsv.v))
-      self.color(v(self.hsv, value));
-    else if (matches(element, self.data.input.hsl.h))
-      self.color(h(self.hsl, value));
-    else if (matches(element, self.data.input.hsl.s))
-      self.color(s(self.hsl, value));
-    else if (matches(element, self.data.input.hsl.l))
-      self.color(l(self.hsl, value));
-    return value;
-  }
-
   function arrowControl(temp, element, event) {
     var value = parseFloat(element.value);
     var min = parseFloat(element.getAttribute("min"));
@@ -355,6 +330,31 @@
     gradient += ")";
     return gradient; 
   };
+
+  function input(self, element) {
+    var value = element.value;
+    if (matches(element, self.data.input.hex))
+      self.color("#" + value);
+    else if (matches(element, self.data.input.rgb.r))
+      self.color(r(self.rgb, value));
+    else if (matches(element, self.data.input.rgb.g))
+      self.color(g(self.rgb, value));
+    else if (matches(element, self.data.input.rgb.b))
+      self.color(b(self.rgb, value));
+    else if (matches(element, self.data.input.hsv.h))
+      self.color(h(self.hsv, value));
+    else if (matches(element, self.data.input.hsv.s))
+      self.color(s(self.hsv, value));
+    else if (matches(element, self.data.input.hsv.v))
+      self.color(v(self.hsv, value));
+    else if (matches(element, self.data.input.hsl.h))
+      self.color(h(self.hsl, value));
+    else if (matches(element, self.data.input.hsl.s))
+      self.color(s(self.hsl, value));
+    else if (matches(element, self.data.input.hsl.l))
+      self.color(l(self.hsl, value));
+    return value;
+  }
 
   function matches(element, nodeList) {
     var i = NodeList.prototype.isPrototypeOf(nodeList) ? nodeList.length : -1;
