@@ -9,9 +9,10 @@
     this.data.preview = iterateQuerySelectorAll(this.data.preview);
     this.color = color;
     this.color(this.data.color);
-    collect(this.data.input).listen("input change", function() { console.log('it works') })
+    var self = this;
+    collect(this.data.input).listen("input change", function() { input(this, self) });
   }
-  
+
   function Collection() {
     this.elements = [];
     this.listen = listen;
@@ -24,8 +25,6 @@
     else if (typeof object === 'object' && object !== null)
       for (var prop in object)
         result.elements = object.hasOwnProperty(prop) ? weave(result.elements, collect(object[prop]).elements) : result.elements;
-    else
-      return [];
     return result;
   }
 
@@ -123,32 +122,32 @@
     );
     return true;
   }
- /*
-  function output(self) {
-    iterateElements(self.data.input.hex,   set,   "value", self.hex.replace("#", ""));
-    iterateElements(self.data.input.rgb.r, set,   "value", r(self.rgb));
-    iterateElements(self.data.input.rgb.g, set,   "value", g(self.rgb));
-    iterateElements(self.data.input.rgb.b, set,   "value", b(self.rgb));
-    iterateElements(self.data.input.hsv.h, set,   "value", h(self.hsv));
-    iterateElements(self.data.input.hsv.s, set,   "value", s(self.hsv));
-    iterateElements(self.data.input.hsv.v, set,   "value", v(self.hsv));
-    iterateElements(self.data.input.hsl.h, set,   "value", h(self.hsl));
-    iterateElements(self.data.input.hsl.s, set,   "value", s(self.hsl));
-    iterateElements(self.data.input.hsl.l, set,   "value", l(self.hsl));
-    iterateElements(self.data.preview,     style, "backgroundColor", self.hex);
-    iterateElements(self.data.track.rgb.r, style, "backgroundImage", self.data.gradient.rgb.r);
-    iterateElements(self.data.track.rgb.g, style, "backgroundImage", self.data.gradient.rgb.g);
-    iterateElements(self.data.track.rgb.b, style, "backgroundImage", self.data.gradient.rgb.b);
-    iterateElements(self.data.track.hsv.s, style, "backgroundImage", self.data.gradient.hsv.s);
-    iterateElements(self.data.track.hsv.v, style, "backgroundImage", self.data.gradient.hsv.v);
-    iterateElements(self.data.track.hsl.s, style, "backgroundImage", self.data.gradient.hsl.s);
-    iterateElements(self.data.track.hsl.l, style, "backgroundImage", self.data.gradient.hsl.l);
-    iterateElements(self.data.track.hsv.h, style, "backgroundImage", self.data.gradient.hue);
-    iterateElements(self.data.track.hsl.h, style, "backgroundImage", self.data.gradient.hue);
-    // todo: responsive hue
-    return false;
-  }
-*/
+ 
+  // function output(self) {
+  //   iterateElements(self.data.input.hex,   set,   "value", self.hex.replace("#", ""));
+  //   iterateElements(self.data.input.rgb.r, set,   "value", r(self.rgb));
+  //   iterateElements(self.data.input.rgb.g, set,   "value", g(self.rgb));
+  //   iterateElements(self.data.input.rgb.b, set,   "value", b(self.rgb));
+  //   iterateElements(self.data.input.hsv.h, set,   "value", h(self.hsv));
+  //   iterateElements(self.data.input.hsv.s, set,   "value", s(self.hsv));
+  //   iterateElements(self.data.input.hsv.v, set,   "value", v(self.hsv));
+  //   iterateElements(self.data.input.hsl.h, set,   "value", h(self.hsl));
+  //   iterateElements(self.data.input.hsl.s, set,   "value", s(self.hsl));
+  //   iterateElements(self.data.input.hsl.l, set,   "value", l(self.hsl));
+  //   iterateElements(self.data.preview,     style, "backgroundColor", self.hex);
+  //   iterateElements(self.data.track.rgb.r, style, "backgroundImage", self.data.gradient.rgb.r);
+  //   iterateElements(self.data.track.rgb.g, style, "backgroundImage", self.data.gradient.rgb.g);
+  //   iterateElements(self.data.track.rgb.b, style, "backgroundImage", self.data.gradient.rgb.b);
+  //   iterateElements(self.data.track.hsv.s, style, "backgroundImage", self.data.gradient.hsv.s);
+  //   iterateElements(self.data.track.hsv.v, style, "backgroundImage", self.data.gradient.hsv.v);
+  //   iterateElements(self.data.track.hsl.s, style, "backgroundImage", self.data.gradient.hsl.s);
+  //   iterateElements(self.data.track.hsl.l, style, "backgroundImage", self.data.gradient.hsl.l);
+  //   iterateElements(self.data.track.hsv.h, style, "backgroundImage", self.data.gradient.hue);
+  //   iterateElements(self.data.track.hsl.h, style, "backgroundImage", self.data.gradient.hue);
+  //   // todo: responsive hue
+  //   return false;
+  // }
+
   function set(property, value, element) {
     if (document.activeElement !== element) {
       var min = parseFloat(element.getAttribute("min"));
@@ -331,28 +330,28 @@
     return gradient; 
   };
 
-  function input(self, element) {
+  function input(element, instance) {
     var value = element.value;
-    if (matches(element, self.data.input.hex))
-      self.color("#" + value);
-    else if (matches(element, self.data.input.rgb.r))
-      self.color(r(self.rgb, value));
-    else if (matches(element, self.data.input.rgb.g))
-      self.color(g(self.rgb, value));
-    else if (matches(element, self.data.input.rgb.b))
-      self.color(b(self.rgb, value));
-    else if (matches(element, self.data.input.hsv.h))
-      self.color(h(self.hsv, value));
-    else if (matches(element, self.data.input.hsv.s))
-      self.color(s(self.hsv, value));
-    else if (matches(element, self.data.input.hsv.v))
-      self.color(v(self.hsv, value));
-    else if (matches(element, self.data.input.hsl.h))
-      self.color(h(self.hsl, value));
-    else if (matches(element, self.data.input.hsl.s))
-      self.color(s(self.hsl, value));
-    else if (matches(element, self.data.input.hsl.l))
-      self.color(l(self.hsl, value));
+    if (matches(element, instance.data.input.hex))
+      instance.color("#" + value);
+    else if (matches(element, instance.data.input.rgb.r))
+      instance.color(r(instance.rgb, value));
+    else if (matches(element, instance.data.input.rgb.g))
+      instance.color(g(instance.rgb, value));
+    else if (matches(element, instance.data.input.rgb.b))
+      instance.color(b(instance.rgb, value));
+    else if (matches(element, instance.data.input.hsv.h))
+      instance.color(h(instance.hsv, value));
+    else if (matches(element, instance.data.input.hsv.s))
+      instance.color(s(instance.hsv, value));
+    else if (matches(element, instance.data.input.hsv.v))
+      instance.color(v(instance.hsv, value));
+    else if (matches(element, instance.data.input.hsl.h))
+      instance.color(h(instance.hsl, value));
+    else if (matches(element, instance.data.input.hsl.s))
+      instance.color(s(instance.hsl, value));
+    else if (matches(element, instance.data.input.hsl.l))
+      instance.color(l(instance.hsl, value));
     return value;
   }
 
