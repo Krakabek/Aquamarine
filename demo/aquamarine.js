@@ -16,6 +16,25 @@
   function Collection() {
     this.elements = [];
     this.listen = listen;
+    this.set = set;
+    this.value = value;
+  }
+
+  function set(element, property, value) {
+    if (document.activeElement !== element) {
+      var min = parseFloat(element.getAttribute("min"));
+      var max = parseFloat(element.getAttribute("max"));
+      if (!isNaN(min))
+        value = parseFloat(value) < min ? min : value;   
+      if (!isNaN(max))
+        value = parseFloat(value) > max ? max : value;
+      element[property] = value;
+    }
+    return false;
+  }
+
+  function value(element, value) {
+    set(element, "value", value)
   }
 
   function collect(object) {
@@ -124,26 +143,26 @@
   }
  
   // function output(self) {
-  //   iterateElements(self.data.input.hex,   set,   "value", self.hex.replace("#", ""));
-  //   iterateElements(self.data.input.rgb.r, set,   "value", r(self.rgb));
-  //   iterateElements(self.data.input.rgb.g, set,   "value", g(self.rgb));
-  //   iterateElements(self.data.input.rgb.b, set,   "value", b(self.rgb));
-  //   iterateElements(self.data.input.hsv.h, set,   "value", h(self.hsv));
-  //   iterateElements(self.data.input.hsv.s, set,   "value", s(self.hsv));
-  //   iterateElements(self.data.input.hsv.v, set,   "value", v(self.hsv));
-  //   iterateElements(self.data.input.hsl.h, set,   "value", h(self.hsl));
-  //   iterateElements(self.data.input.hsl.s, set,   "value", s(self.hsl));
-  //   iterateElements(self.data.input.hsl.l, set,   "value", l(self.hsl));
-  //   iterateElements(self.data.preview,     style, "backgroundColor", self.hex);
-  //   iterateElements(self.data.track.rgb.r, style, "backgroundImage", self.data.gradient.rgb.r);
-  //   iterateElements(self.data.track.rgb.g, style, "backgroundImage", self.data.gradient.rgb.g);
-  //   iterateElements(self.data.track.rgb.b, style, "backgroundImage", self.data.gradient.rgb.b);
-  //   iterateElements(self.data.track.hsv.s, style, "backgroundImage", self.data.gradient.hsv.s);
-  //   iterateElements(self.data.track.hsv.v, style, "backgroundImage", self.data.gradient.hsv.v);
-  //   iterateElements(self.data.track.hsl.s, style, "backgroundImage", self.data.gradient.hsl.s);
-  //   iterateElements(self.data.track.hsl.l, style, "backgroundImage", self.data.gradient.hsl.l);
-  //   iterateElements(self.data.track.hsv.h, style, "backgroundImage", self.data.gradient.hue);
-  //   iterateElements(self.data.track.hsl.h, style, "backgroundImage", self.data.gradient.hue);
+  //   collect(self.data.input.hex).value(self.hex.replace("#", ""));
+  //   collect(self.data.input.rgb.r).value(r(self.rgb));
+  //   collect(self.data.input.rgb.g).value(g(self.rgb));
+  //   collect(self.data.input.rgb.b).value(b(self.rgb));
+  //   collect(self.data.input.hsv.h).value(h(self.hsv));
+  //   collect(self.data.input.hsv.s).value(s(self.hsv));
+  //   collect(self.data.input.hsv.v).value(v(self.hsv));
+  //   collect(self.data.input.hsl.h).value(h(self.hsl));
+  //   collect(self.data.input.hsl.s).value(s(self.hsl));
+  //   collect(self.data.input.hsl.l).value(l(self.hsl));
+  //   collect(self.data.preview).style.backgroundColor(self.hex);
+  //   collect(self.data.track.rgb.r).style.backgroundImage(self.data.gradient.rgb.r);
+  //   collect(self.data.track.rgb.g).style.backgroundImage(self.data.gradient.rgb.g);
+  //   collect(self.data.track.rgb.b).style.backgroundImage(self.data.gradient.rgb.b);
+  //   collect(self.data.track.hsv.s).style.backgroundImage(self.data.gradient.hsv.s);
+  //   collect(self.data.track.hsv.v).style.backgroundImage(self.data.gradient.hsv.v);
+  //   collect(self.data.track.hsl.s).style.backgroundImage(self.data.gradient.hsl.s);
+  //   collect(self.data.track.hsl.l).style.backgroundImage(self.data.gradient.hsl.l);
+  //   collect(self.data.track.hsv.h).style.backgroundImage(self.data.gradient.hue);
+  //   collect(self.data.track.hsl.h).style.backgroundImage(self.data.gradient.hue);
   //   // todo: responsive hue
   //   return false;
   // }
