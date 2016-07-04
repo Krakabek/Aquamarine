@@ -11,10 +11,10 @@
     this.data.preview = iterateQuerySelectorAll(this.data.preview);
     this.color = color;
     this.color(this.data.color);
-    iterateElements(this.data.input, addEventListener, "input change", input, this);
-    iterateElements(this.data.input, addEventListener, "focusout", function(self, element) { output(self) }, this);
-    iterateElements(this.data.input.range, addEventListener, "click change", function(self, element) { element.focus() }, false);
-    iterateElements(this.data.input.text, addEventListener, "keydown", arrowControl, false);
+    // iterateElements(this.data.input, addEventListener, "input change", input, this);
+    // iterateElements(this.data.input, addEventListener, "focusout", function(self, element) { output(self) }, this);
+    // iterateElements(this.data.input.range, addEventListener, "click change", function(self, element) { element.focus() }, false);
+    // iterateElements(this.data.input.text, addEventListener, "keydown", arrowControl, false);
   }
 
   // todo: pass object to iterateElements
@@ -62,7 +62,7 @@
     if (format(color)) {
       this.data.color = color;
       sync(this);
-      output(this);
+      // output(this);
     }
     return this.data.color;
   }
@@ -104,7 +104,7 @@
     );
     return true;
   }
- 
+ /*
   function output(self) {
     iterateElements(self.data.input.hex,   set,   "value", self.hex.replace("#", ""));
     iterateElements(self.data.input.rgb.r, set,   "value", r(self.rgb));
@@ -129,7 +129,7 @@
     // todo: responsive hue
     return false;
   }
-
+*/
   function set(property, value, element) {
     if (document.activeElement !== element) {
       var min = parseFloat(element.getAttribute("min"));
@@ -391,6 +391,7 @@
     });
   }
 
+/*
   // If "object" is a DOM element, call "handler". If not, look for DOM elements in object properties and its sub-properties
   // Arguments other than object and handler will be passed into handler
   function iterateElements(object, handler) {
@@ -406,7 +407,7 @@
         iterateElements(object[prop], handler, handlerArgs);
     return false;
   }
-
+*/
   // Creates a flat array from multiple arrays and / or primitives. Keeps subarrays.
   // 1, 2, 3 -> [1, 2, 3]
   // [1, 2, [3, 4, 5]], 6, 7, [8, 9] -> [1, 2, [3, 4, 5], 6, 7, 8, 9]
