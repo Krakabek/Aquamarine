@@ -11,13 +11,29 @@
     this.data.preview = iterateQuerySelectorAll(this.data.preview);
     this.color = color;
     this.color(this.data.color);
+    // collect(this.data.input).listen("input change", function() {
+    //   console.log(this)
+    // });
+    console.log(
+      collect(this.data.input)
+    )
     // iterateElements(this.data.input, addEventListener, "input change", input, this);
     // iterateElements(this.data.input, addEventListener, "focusout", function(self, element) { output(self) }, this);
     // iterateElements(this.data.input.range, addEventListener, "click change", function(self, element) { element.focus() }, false);
     // iterateElements(this.data.input.text, addEventListener, "keydown", arrowControl, false);
   }
 
-  // todo: pass object to iterateElements
+  var collect = function(object) {
+    var result = [];
+    if (isElement(object))
+      result.push(object);
+    else if (typeof object === 'object' && object !== null)
+      for (var prop in object)
+        result = object.hasOwnProperty(prop) ? createFlatArray(result, collect(object[prop])) : result;
+    else
+      return [];
+    return result;
+  }
 
   function arrowControl(temp, element, event) {
     var value = parseFloat(element.value);
@@ -373,6 +389,7 @@
     return result;
   }
 
+  /*
   // Adds one or more event listeners, e.g. "change input focusout"
   function addEventListener(events, handler, handlerArgs, element) {
     events.split(" ").forEach(function(event) {
@@ -381,6 +398,7 @@
       });
     });
   }
+  */
   
   // Removes one or more event listeners. "events" argument should be either string or an array of strings
   function removeEventListener(events, handler, handlerArgs, element) {
