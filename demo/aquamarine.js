@@ -18,24 +18,37 @@
     this.listen = listen;
     this.set = set;
     this.value = value;
+    this.backgroundImage = backgroundImage;
+    this.backgroundColor = backgroundColor;
   }
 
-  function set(element, property, value) {
-    if (document.activeElement !== element) {
-      var min = parseFloat(element.getAttribute("min"));
-      var max = parseFloat(element.getAttribute("max"));
-      if (!isNaN(min))
-        value = parseFloat(value) < min ? min : value;   
-      if (!isNaN(max))
-        value = parseFloat(value) > max ? max : value;
-      element[property] = value;
-    }
+  function value(value)           { this.set("value", value) }
+  function backgroundImage(value) { this.set("style.backgroundImage", value) }
+  function backgroundColor(value) { this.set("style.backgroundColor", value) }
+
+  function set(property, value) {
+    var elements = this.elements;
+    elements.forEach(function(element) {
+      if (document.activeElement !== element) {
+        var min = parseFloat(element.getAttribute("min"));
+        var max = parseFloat(element.getAttribute("max"));
+        if (!isNaN(min))
+          value = parseFloat(value) < min ? min : value;   
+        if (!isNaN(max))
+          value = parseFloat(value) > max ? max : value;
+        if (typeof property === "string") {
+          var split = property.split(".");
+          var chain = element;
+          var i;
+          for (i = 0; i + 1 < split.length; i++)
+            chain = chain[split[i]]
+          chain[split[i]] = value;
+        }
+      }
+    });
     return false;
   }
 
-  function value(element, value) {
-    set(element, "value", value)
-  }
 
   function collect(object) {
     var result = new Collection();
@@ -99,7 +112,7 @@
     if (format(color)) {
       this.data.color = color;
       sync(this);
-      // output(this);
+      output(this);
     }
     return this.data.color;
   }
@@ -142,48 +155,47 @@
     return true;
   }
  
-  // function output(self) {
-  //   collect(self.data.input.hex).value(self.hex.replace("#", ""));
-  //   collect(self.data.input.rgb.r).value(r(self.rgb));
-  //   collect(self.data.input.rgb.g).value(g(self.rgb));
-  //   collect(self.data.input.rgb.b).value(b(self.rgb));
-  //   collect(self.data.input.hsv.h).value(h(self.hsv));
-  //   collect(self.data.input.hsv.s).value(s(self.hsv));
-  //   collect(self.data.input.hsv.v).value(v(self.hsv));
-  //   collect(self.data.input.hsl.h).value(h(self.hsl));
-  //   collect(self.data.input.hsl.s).value(s(self.hsl));
-  //   collect(self.data.input.hsl.l).value(l(self.hsl));
-  //   collect(self.data.preview).style.backgroundColor(self.hex);
-  //   collect(self.data.track.rgb.r).style.backgroundImage(self.data.gradient.rgb.r);
-  //   collect(self.data.track.rgb.g).style.backgroundImage(self.data.gradient.rgb.g);
-  //   collect(self.data.track.rgb.b).style.backgroundImage(self.data.gradient.rgb.b);
-  //   collect(self.data.track.hsv.s).style.backgroundImage(self.data.gradient.hsv.s);
-  //   collect(self.data.track.hsv.v).style.backgroundImage(self.data.gradient.hsv.v);
-  //   collect(self.data.track.hsl.s).style.backgroundImage(self.data.gradient.hsl.s);
-  //   collect(self.data.track.hsl.l).style.backgroundImage(self.data.gradient.hsl.l);
-  //   collect(self.data.track.hsv.h).style.backgroundImage(self.data.gradient.hue);
-  //   collect(self.data.track.hsl.h).style.backgroundImage(self.data.gradient.hue);
-  //   // todo: responsive hue
+  function output(self) {
+    collect(self.data.input.hex).value(self.hex.replace("#", ""));
+    collect(self.data.input.rgb.r).value(r(self.rgb));
+    collect(self.data.input.rgb.g).value(g(self.rgb));
+    collect(self.data.input.rgb.b).value(b(self.rgb));
+    collect(self.data.input.hsv.h).value(h(self.hsv));
+    collect(self.data.input.hsv.s).value(s(self.hsv));
+    collect(self.data.input.hsv.v).value(v(self.hsv));
+    collect(self.data.input.hsl.h).value(h(self.hsl));
+    collect(self.data.input.hsl.s).value(s(self.hsl));
+    collect(self.data.input.hsl.l).value(l(self.hsl));
+    collect(self.data.preview).backgroundColor(self.hex);
+    collect(self.data.track.rgb.r).backgroundImage(self.data.gradient.rgb.r);
+    collect(self.data.track.rgb.g).backgroundImage(self.data.gradient.rgb.g);
+    collect(self.data.track.rgb.b).backgroundImage(self.data.gradient.rgb.b);
+    collect(self.data.track.hsv.s).backgroundImage(self.data.gradient.hsv.s);
+    collect(self.data.track.hsv.v).backgroundImage(self.data.gradient.hsv.v);
+    collect(self.data.track.hsl.s).backgroundImage(self.data.gradient.hsl.s);
+    collect(self.data.track.hsl.l).backgroundImage(self.data.gradient.hsl.l);
+    collect(self.data.track.hsv.h).backgroundImage(self.data.gradient.hue);
+    collect(self.data.track.hsl.h).backgroundImage(self.data.gradient.hue);
+    return false;
+  }
+
+  // function set(property, value, element) {
+  //   if (document.activeElement !== element) {
+  //     var min = parseFloat(element.getAttribute("min"));
+  //     var max = parseFloat(element.getAttribute("max"));
+  //     if (!isNaN(min))
+  //       value = parseFloat(value) < min ? min : value;   
+  //     if (!isNaN(max))
+  //       value = parseFloat(value) > max ? max : value;
+  //     element[property] = value;
+  //   }
   //   return false;
   // }
 
-  function set(property, value, element) {
-    if (document.activeElement !== element) {
-      var min = parseFloat(element.getAttribute("min"));
-      var max = parseFloat(element.getAttribute("max"));
-      if (!isNaN(min))
-        value = parseFloat(value) < min ? min : value;   
-      if (!isNaN(max))
-        value = parseFloat(value) > max ? max : value;
-      element[property] = value;
-    }
-    return false;
-  }
-
-  function style(property, value, element) {
-    element.style[property] = value;
-    return false;
-  }
+  // function style(property, value, element) {
+  //   element.style[property] = value;
+  //   return false;
+  // }
 
   function settings() {
     return {
