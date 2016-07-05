@@ -1,8 +1,6 @@
-/* Version 0.10 */
+/* Version 0.11 */
 
 (function() {
-  
-  //todo: remove elements
 
   function Aquamarine(arg) {
     this.data = format(arg) ? merge({ color: arg }, settings()) : merge(arg, settings());
@@ -11,15 +9,70 @@
     this.data.preview = iterateQuerySelectorAll(this.data.preview);
     this.color = color;
     this.color(this.data.color);
-    iterateElements(this.data.input, addEventListener, "input change", input, this);
-    iterateElements(this.data.input, addEventListener, "focusout", function(self, element) { output(self) }, this);
-    iterateElements(this.data.input.range, addEventListener, "click change", function(self, element) { element.focus() }, false);
-    iterateElements(this.data.input.text, addEventListener, "keydown", arrowControl, false);
+    var self = this;
+    collect(this.data.input).listen("input change", function() { input(this, self) });
+    collect(this.data.input).listen("focusout", function() { output (self) });
+    collect(this.data.input.range).listen("click change", function() { this.focus() });
+    collect(this.data.input.text).listen("keydown", function(event) { arrowControl(this, event) });
   }
 
-  // todo: pass object to iterateElements
+  function Collection() {
+    this.elements = [];
+    this.listen = listen;
+    this.set = set;
+    this.value = value;
+    this.backgroundImage = backgroundImage;
+    this.backgroundColor = backgroundColor;
+  }
 
-  function arrowControl(temp, element, event) {
+  function value(value)           { this.set("value", value) }
+  function backgroundImage(value) { this.set("style.backgroundImage", value) }
+  function backgroundColor(value) { this.set("style.backgroundColor", value) }
+
+  function set(property, value) {
+    var elements = this.elements;
+    elements.forEach(function(element) {
+      if (document.activeElement !== element) {
+        var min = parseFloat(element.getAttribute("min"));
+        var max = parseFloat(element.getAttribute("max"));
+        if (!isNaN(min))
+          value = parseFloat(value) < min ? min : value;   
+        if (!isNaN(max))
+          value = parseFloat(value) > max ? max : value;
+        if (typeof property === "string") {
+          var split = property.split(".");
+          var chain = element;
+          var i;
+          for (i = 0; i + 1 < split.length; i++)
+            chain = chain[split[i]]
+          chain[split[i]] = value;
+        }
+      }
+    });
+    return false;
+  }
+
+
+  function collect(object) {
+    var result = new Collection();
+    if (isElement(object))
+      result.elements.push(object);
+    else if (typeof object === 'object' && object !== null)
+      for (var prop in object)
+        result.elements = object.hasOwnProperty(prop) ? weave(result.elements, collect(object[prop]).elements) : result.elements;
+    return result;
+  }
+
+  function listen(events, handler) {
+    elements = this.elements;
+    events.split(" ").forEach(function(event) {
+      elements.forEach(function(element) {
+        element.addEventListener(event, handler)
+      });
+    });
+  }
+
+  function arrowControl(element, event) {
     var value = parseFloat(element.value);
     var min = parseFloat(element.getAttribute("min"));
     var max = parseFloat(element.getAttribute("max"));
@@ -106,47 +159,46 @@
   }
  
   function output(self) {
-    iterateElements(self.data.input.hex,   set,   "value", self.hex.replace("#", ""));
-    iterateElements(self.data.input.rgb.r, set,   "value", r(self.rgb));
-    iterateElements(self.data.input.rgb.g, set,   "value", g(self.rgb));
-    iterateElements(self.data.input.rgb.b, set,   "value", b(self.rgb));
-    iterateElements(self.data.input.hsv.h, set,   "value", h(self.hsv));
-    iterateElements(self.data.input.hsv.s, set,   "value", s(self.hsv));
-    iterateElements(self.data.input.hsv.v, set,   "value", v(self.hsv));
-    iterateElements(self.data.input.hsl.h, set,   "value", h(self.hsl));
-    iterateElements(self.data.input.hsl.s, set,   "value", s(self.hsl));
-    iterateElements(self.data.input.hsl.l, set,   "value", l(self.hsl));
-    iterateElements(self.data.preview,     style, "backgroundColor", self.hex);
-    iterateElements(self.data.track.rgb.r, style, "backgroundImage", self.data.gradient.rgb.r);
-    iterateElements(self.data.track.rgb.g, style, "backgroundImage", self.data.gradient.rgb.g);
-    iterateElements(self.data.track.rgb.b, style, "backgroundImage", self.data.gradient.rgb.b);
-    iterateElements(self.data.track.hsv.s, style, "backgroundImage", self.data.gradient.hsv.s);
-    iterateElements(self.data.track.hsv.v, style, "backgroundImage", self.data.gradient.hsv.v);
-    iterateElements(self.data.track.hsl.s, style, "backgroundImage", self.data.gradient.hsl.s);
-    iterateElements(self.data.track.hsl.l, style, "backgroundImage", self.data.gradient.hsl.l);
-    iterateElements(self.data.track.hsv.h, style, "backgroundImage", self.data.gradient.hue);
-    iterateElements(self.data.track.hsl.h, style, "backgroundImage", self.data.gradient.hue);
-    // todo: responsive hue
+    collect(self.data.input.hex).value(self.hex.replace("#", ""));
+    collect(self.data.input.rgb.r).value(r(self.rgb));
+    collect(self.data.input.rgb.g).value(g(self.rgb));
+    collect(self.data.input.rgb.b).value(b(self.rgb));
+    collect(self.data.input.hsv.h).value(h(self.hsv));
+    collect(self.data.input.hsv.s).value(s(self.hsv));
+    collect(self.data.input.hsv.v).value(v(self.hsv));
+    collect(self.data.input.hsl.h).value(h(self.hsl));
+    collect(self.data.input.hsl.s).value(s(self.hsl));
+    collect(self.data.input.hsl.l).value(l(self.hsl));
+    collect(self.data.preview).backgroundColor(self.hex);
+    collect(self.data.track.rgb.r).backgroundImage(self.data.gradient.rgb.r);
+    collect(self.data.track.rgb.g).backgroundImage(self.data.gradient.rgb.g);
+    collect(self.data.track.rgb.b).backgroundImage(self.data.gradient.rgb.b);
+    collect(self.data.track.hsv.s).backgroundImage(self.data.gradient.hsv.s);
+    collect(self.data.track.hsv.v).backgroundImage(self.data.gradient.hsv.v);
+    collect(self.data.track.hsl.s).backgroundImage(self.data.gradient.hsl.s);
+    collect(self.data.track.hsl.l).backgroundImage(self.data.gradient.hsl.l);
+    collect(self.data.track.hsv.h).backgroundImage(self.data.gradient.hue);
+    collect(self.data.track.hsl.h).backgroundImage(self.data.gradient.hue);
     return false;
   }
 
-  function set(property, value, element) {
-    if (document.activeElement !== element) {
-      var min = parseFloat(element.getAttribute("min"));
-      var max = parseFloat(element.getAttribute("max"));
-      if (!isNaN(min))
-        value = parseFloat(value) < min ? min : value;   
-      if (!isNaN(max))
-        value = parseFloat(value) > max ? max : value;
-      element[property] = value;
-    }
-    return false;
-  }
+  // function set(property, value, element) {
+  //   if (document.activeElement !== element) {
+  //     var min = parseFloat(element.getAttribute("min"));
+  //     var max = parseFloat(element.getAttribute("max"));
+  //     if (!isNaN(min))
+  //       value = parseFloat(value) < min ? min : value;   
+  //     if (!isNaN(max))
+  //       value = parseFloat(value) > max ? max : value;
+  //     element[property] = value;
+  //   }
+  //   return false;
+  // }
 
-  function style(property, value, element) {
-    element.style[property] = value;
-    return false;
-  }
+  // function style(property, value, element) {
+  //   element.style[property] = value;
+  //   return false;
+  // }
 
   function settings() {
     return {
@@ -312,28 +364,28 @@
     return gradient; 
   };
 
-  function input(self, element) {
+  function input(element, instance) {
     var value = element.value;
-    if (matches(element, self.data.input.hex))
-      self.color("#" + value);
-    else if (matches(element, self.data.input.rgb.r))
-      self.color(r(self.rgb, value));
-    else if (matches(element, self.data.input.rgb.g))
-      self.color(g(self.rgb, value));
-    else if (matches(element, self.data.input.rgb.b))
-      self.color(b(self.rgb, value));
-    else if (matches(element, self.data.input.hsv.h))
-      self.color(h(self.hsv, value));
-    else if (matches(element, self.data.input.hsv.s))
-      self.color(s(self.hsv, value));
-    else if (matches(element, self.data.input.hsv.v))
-      self.color(v(self.hsv, value));
-    else if (matches(element, self.data.input.hsl.h))
-      self.color(h(self.hsl, value));
-    else if (matches(element, self.data.input.hsl.s))
-      self.color(s(self.hsl, value));
-    else if (matches(element, self.data.input.hsl.l))
-      self.color(l(self.hsl, value));
+    if (matches(element, instance.data.input.hex))
+      instance.color("#" + value);
+    else if (matches(element, instance.data.input.rgb.r))
+      instance.color(r(instance.rgb, value));
+    else if (matches(element, instance.data.input.rgb.g))
+      instance.color(g(instance.rgb, value));
+    else if (matches(element, instance.data.input.rgb.b))
+      instance.color(b(instance.rgb, value));
+    else if (matches(element, instance.data.input.hsv.h))
+      instance.color(h(instance.hsv, value));
+    else if (matches(element, instance.data.input.hsv.s))
+      instance.color(s(instance.hsv, value));
+    else if (matches(element, instance.data.input.hsv.v))
+      instance.color(v(instance.hsv, value));
+    else if (matches(element, instance.data.input.hsl.h))
+      instance.color(h(instance.hsl, value));
+    else if (matches(element, instance.data.input.hsl.s))
+      instance.color(s(instance.hsl, value));
+    else if (matches(element, instance.data.input.hsl.l))
+      instance.color(l(instance.hsl, value));
     return value;
   }
 
@@ -373,24 +425,27 @@
     return result;
   }
 
+  /*
   // Adds one or more event listeners, e.g. "change input focusout"
-  function addEventListener(events, handler, handlerArgs, element) {
+  function listen(events, handler, handlerArgs, element) {
     events.split(" ").forEach(function(event) {
-      element.addEventListener(event, function(event) {
-        handler.apply(null, createFlatArray(handlerArgs, element, event));
+      element.listen(event, function(event) {
+        handler.apply(null, weave(handlerArgs, element, event));
       });
     });
   }
+  */
   
   // Removes one or more event listeners. "events" argument should be either string or an array of strings
-  function removeEventListener(events, handler, handlerArgs, element) {
+  function mute(events, handler, handlerArgs, element) {
     events.split(" ").forEach(function(event) {
-      element.removeEventListener(event, function() {
-        handler.apply(null, createFlatArray(handlerArgs, element, event));
+      element.mute(event, function() {
+        handler.apply(null, weave(handlerArgs, element, event));
       });
     });
   }
 
+/*
   // If "object" is a DOM element, call "handler". If not, look for DOM elements in object properties and its sub-properties
   // Arguments other than object and handler will be passed into handler
   function iterateElements(object, handler) {
@@ -400,17 +455,17 @@
     else for (var i = 2; i < arguments.length; i++)
       handlerArgs._args.push(arguments[i]);
     if (isElement(object))
-      handler.apply(null, createFlatArray(handlerArgs._args, object));     
+      handler.apply(null, weave(handlerArgs._args, object));     
     else if (typeof object === 'object')
       for (var prop in object)
         iterateElements(object[prop], handler, handlerArgs);
     return false;
   }
-
+*/
   // Creates a flat array from multiple arrays and / or primitives. Keeps subarrays.
   // 1, 2, 3 -> [1, 2, 3]
   // [1, 2, [3, 4, 5]], 6, 7, [8, 9] -> [1, 2, [3, 4, 5], 6, 7, 8, 9]
-  function createFlatArray() {
+  function weave() {
     var array = [];
     for (var i = 0; i < arguments.length; i++) {
       if (typeof arguments[i] !== "undefined") {

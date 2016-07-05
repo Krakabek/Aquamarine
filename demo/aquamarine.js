@@ -1,4 +1,4 @@
-/* Version 0.10 */
+/* Version 0.11 */
 
 (function() {
 
@@ -11,6 +11,9 @@
     this.color(this.data.color);
     var self = this;
     collect(this.data.input).listen("input change", function() { input(this, self) });
+    collect(this.data.input).listen("focusout", function() { output (self) });
+    collect(this.data.input.range).listen("click change", function() { this.focus() });
+    collect(this.data.input.text).listen("keydown", function(event) { arrowControl(this, event) });
   }
 
   function Collection() {
@@ -69,7 +72,7 @@
     });
   }
 
-  function arrowControl(temp, element, event) {
+  function arrowControl(element, event) {
     var value = parseFloat(element.value);
     var min = parseFloat(element.getAttribute("min"));
     var max = parseFloat(element.getAttribute("max"));
