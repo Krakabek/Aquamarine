@@ -15,6 +15,7 @@ Aquamarine is a customizable color picker plugin that support HSV / HSB color mo
 
 Initialize
 
+```javascript
 	var colorpicker = new Aquamarine()
 
 	var colorpicker = new Aquamarine("royalblue")
@@ -24,9 +25,11 @@ Initialize
 	var colorpicker = new Aquamarine("hsl(210, 100%, 45%)")
 
 	var colorpicker = new Aquamarine("hsv(20, 75%, 100%)")
+```
 	
 Set and get color
 	
+```javascript
 	colorpicker.color("hotpink") // Set color to "hotpink". Aquamarine accepts any CSS color format
 	
 	colorpicker.color() // "hotpink"
@@ -38,9 +41,11 @@ Set and get color
 	colorpicker.hsl // "hsl(330, 100%, 71%)"
 	
 	colorpicker.hsv // "hsv(330, 59%, 100%)"
+```
 	
 ## HTML
 
+```html
 	<input type="text" data-aquamarine="hex" autocomplete="off"> // Example hex text input
 	
 	<input type="text" data-aquamarine="rgb-r" autocomplete="off" min="0" max="255"> // Example red in RGB color model text input
@@ -54,11 +59,13 @@ Set and get color
 	<input type="range" data-aquamarine="hsv-s" min="0" max="100"> // Example saturation in HSV / HSB color model range input
 	
 	<input type="range" data-aquamarine="hsv-v" min="0" max="100"> // Example brightness in HSV / HSB color model range input
+```
 
 Script looks for elements with ``data-aquamarine`` attribute and matches value of the attribute with color model parameter. You should use this attribute on ``type="range"`` and ``type="text"`` inputs.
 
 Allowed ``data-aqumarine`` values
-	
+
+```html	
 	data-aquamarine="hex"
 	
 	data-aquamarine="rgb-r"
@@ -78,6 +85,7 @@ Allowed ``data-aqumarine`` values
 	data-aquamarine="hsv-s"
 	
 	data-aquamarine="hsv-v"
+```
 	
 Don't forget to set ``min`` and ``max`` attributes, even on ``type="text"`` elements
 
