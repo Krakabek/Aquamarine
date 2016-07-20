@@ -41,20 +41,20 @@ Set and get color
 	
 ## HTML
 
-	<input type="text" autocomplete="off" data-aquamarine="hex"> // Example hex text input
+	<input type="text" data-aquamarine="hex" autocomplete="off"> // Example hex text input
 	
-	<input type="text" autocomplete="off" data-aquamarine="rgb-r" min="0" max="255"> // Example red in RGB color model text input
+	<input type="text" data-aquamarine="rgb-r" autocomplete="off" min="0" max="255"> // Example red in RGB color model text input
 	
-	<input type="text" autocomplete="off" data-aquamarine="rgb-g" min="0" max="255"> // Example green in RGB color model text input
+	<input type="text" data-aquamarine="rgb-g" autocomplete="off" min="0" max="255"> // Example green in RGB color model text input
 	
-	<input type="text" autocomplete="off" data-aquamarine="rgb-b" min="0" max="255"> // Example blue in RGB color model text input
+	<input type="text" data-aquamarine="rgb-b" autocomplete="off" min="0" max="255"> // Example blue in RGB color model text input
 	
 	<input type="range" data-aquamarine="hsv-h" min="0" max="360"> // Example hue in HSV / HSB color model range input
 	
 	<input type="range" data-aquamarine="hsv-s" min="0" max="100"> // Example saturation in HSV / HSB color model range input
 	
 	<input type="range" data-aquamarine="hsv-v" min="0" max="100"> // Example brightness in HSV / HSB color model range input
-	
+
 Script looks for elements with ``data-aquamarine`` attribute and matches value of the attribute with color model parameter. You should use this attribute on ``type="range"`` and ``type="text"`` inputs.
 
 Allowed ``data-aqumarine`` values
