@@ -44,22 +44,6 @@ Set and get color
 	colorpicker.hsv // "hsl(330, 59%, 100%)"
 ```
 	
-Set and get color
-	
-```javascript
-	colorpicker.color("hotpink") // Set color to "hotpink". Aquamarine accepts any CSS color format
-	
-	colorpicker.color() // "hotpink"
-	
-	colorpicker.hex // "#ff69b4"
-	
-	colorpicker.rgb // "rgb(255, 105, 180)"
-	
-	colorpicker.hsl // "hsl(330, 100%, 71%)"
-	
-	colorpicker.hsv // "hsv(330, 59%, 100%)"
-```
-	
 ## HTML
 
 Script looks for elements with ``data-aquamarine`` attribute and matches value of the attribute with color model parameter. You should use this attribute on ``type="range"`` and ``type="text"`` inputs.
