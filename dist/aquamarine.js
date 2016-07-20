@@ -10,10 +10,18 @@
     this.color = color;
     this.color(this.data.color);
     var self = this;
-    collect(this.data.input).listen("input change", function() { input(this, self) });
-    collect(this.data.input).listen("focusout", function() { output (self) });
-    collect(this.data.input.range).listen("click change", function() { this.focus() });
-    collect(this.data.input.text).listen("keydown", function(event) { arrowControl(this, event) });
+    collect(this.data.input).listen("input change", function() {
+      input(this, self)
+    });
+    collect(this.data.input).listen("focusout", function() {
+      output (self)
+    });
+    collect(this.data.input.range).listen("click change", function() {
+      this.focus()
+    });
+    collect(this.data.input.text).listen("keydown", function(event) {
+      arrowControl(this, event)
+    });
   }
 
   function Collection() {
@@ -25,9 +33,17 @@
     this.backgroundColor = backgroundColor;
   }
 
-  function value(value)           { this.set("value", value) }
-  function backgroundImage(value) { this.set("style.backgroundImage", value) }
-  function backgroundColor(value) { this.set("style.backgroundColor", value) }
+  function value(value) {
+    this.set("value", value)
+  }
+  
+  function backgroundImage(value) {
+    this.set("style.backgroundImage", value)
+  }
+  
+  function backgroundColor(value) {
+    this.set("style.backgroundColor", value)
+  }
 
   function set(property, value) {
     var elements = this.elements;
@@ -51,7 +67,6 @@
     });
     return false;
   }
-
 
   function collect(object) {
     var result = new Collection();
@@ -78,28 +93,28 @@
     var max = parseFloat(element.getAttribute("max"));
     var change = new Event("change");
     switch(event.which) {
-      case 37: // left
+      case 37: // Left
         if (element.selectionStart === 0 && value > min) {
           element.value = value - 1;
           element.dispatchEvent(change);
           element.selectionStart = 0;
         }
         break;
-      case 38: // up
+      case 38: // Up
         if (element.selectionStart === 0 && value < max) {
           element.value = value + 1;
           element.dispatchEvent(change);
           element.selectionStart = 0;
         }
         break;
-      case 39: // right
+      case 39: // Right
         if (element.value.length === element.selectionEnd && value < max) {
           element.value = value + 1;
           element.dispatchEvent(change);
           element.selectionEnd = element.value.length;
         }
         break;
-      case 40: // down
+      case 40: // Down
         if (element.value.length === element.selectionEnd && value > min) {
           element.value = value - 1;
           element.dispatchEvent(change);
@@ -120,8 +135,8 @@
     return this.data.color;
   }
 
+  // To-do: sync h in hsl and hsv
   function sync(self) {
-    // todo: sync h in hsl and hsv
     self.hex = tinycolor(self.data.color).toHexString();
     self.rgb = tinycolor(self.data.color).setAlpha(1).toRgbString();
     self.hsv = isHsv(self.data.color) ? self.data.color : tinycolor(self.data.color).setAlpha(1).toHsvString();
@@ -182,32 +197,12 @@
     return false;
   }
 
-  // function set(property, value, element) {
-  //   if (document.activeElement !== element) {
-  //     var min = parseFloat(element.getAttribute("min"));
-  //     var max = parseFloat(element.getAttribute("max"));
-  //     if (!isNaN(min))
-  //       value = parseFloat(value) < min ? min : value;   
-  //     if (!isNaN(max))
-  //       value = parseFloat(value) > max ? max : value;
-  //     element[property] = value;
-  //   }
-  //   return false;
-  // }
-
-  // function style(property, value, element) {
-  //   element.style[property] = value;
-  //   return false;
-  // }
-
   function settings() {
     return {
       color: "#00FFBF",
       allowArrows: true,
       allowFocusFix: true,
       allowValidation: true,
-      // outputHash: true,
-      // outputPercentage: false,
       outputFormat: "auto",
       preview: "[data-aquamarine=preview]",
       input: {
@@ -303,6 +298,7 @@
     else return color.match(pattern)[0];
   }
 
+  // To-do: make sure regex include alpha
   function r(color, value) {
     if (isRgb(color) || isRgba(color))
       return match(color, /[0-9]+(?=(\s*,\s*[0-9]+\s*,\s*[0-9]+(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$))/, value, true)
@@ -318,7 +314,6 @@
       return match(color, /[0-9]+(?=(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$)/, value, true);
     else return false;
   }
-  // todo: make sure includes a?
   function h(color, value) {
     if (isHsv(color) || isHsva(color) || isHsl(color) || isHsla(color))
       return match(color, /[0-9]+(\.[0-9]+)?(?=(\s*,\s*[0-9]+(\.[0-9]+)?%\s*,\s*[0-9]+(\.[0-9]+)?%(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$))/, value);
@@ -395,9 +390,11 @@
     return i > -1;
   }
 
-  // Merges all properties and sub-properties of source and overrides.
-  // Type of a property should be equal across objects for overrides to be honored
-  // Ditches properties not present in source
+  /*
+  Merges all properties and sub-properties of source and overrides.
+  Type of a property should be equal across objects for overrides to be honored
+  Ditches properties not present in source
+  */
   function merge(overrides, source) {
     var result = {};
     if (typeof overrides === "object" && typeof source === "object")
@@ -410,7 +407,9 @@
     return result;
   }
 
-  // Takes a nested object and iterates querySelectorAll on end properties
+  /*
+  Takes a nested object and iterates querySelectorAll on end properties
+  */
   function iterateQuerySelectorAll(object) {
     var result = {};
     if (typeof object === 'object') {
@@ -421,50 +420,14 @@
       result = document.querySelectorAll(object);
       result = result.length ? result : object;
     }
-    // console.log(result.length ? result : object)
     return result;
   }
 
   /*
-  // Adds one or more event listeners, e.g. "change input focusout"
-  function listen(events, handler, handlerArgs, element) {
-    events.split(" ").forEach(function(event) {
-      element.listen(event, function(event) {
-        handler.apply(null, weave(handlerArgs, element, event));
-      });
-    });
-  }
+  Creates a flat array from multiple arrays and / or primitives. Keeps subarrays.
+  1, 2, 3 -> [1, 2, 3]
+  [1, 2, [3, 4, 5]], 6, 7, [8, 9] -> [1, 2, [3, 4, 5], 6, 7, 8, 9]
   */
-  
-  // Removes one or more event listeners. "events" argument should be either string or an array of strings
-  function mute(events, handler, handlerArgs, element) {
-    events.split(" ").forEach(function(event) {
-      element.mute(event, function() {
-        handler.apply(null, weave(handlerArgs, element, event));
-      });
-    });
-  }
-
-/*
-  // If "object" is a DOM element, call "handler". If not, look for DOM elements in object properties and its sub-properties
-  // Arguments other than object and handler will be passed into handler
-  function iterateElements(object, handler) {
-    var handlerArgs = { _args: [] };
-    if (typeof arguments[2] === "object" && arguments.length === 3)
-      handlerArgs._args = arguments[2].hasOwnProperty("_args") ? arguments[2]._args : arguments[2];
-    else for (var i = 2; i < arguments.length; i++)
-      handlerArgs._args.push(arguments[i]);
-    if (isElement(object))
-      handler.apply(null, weave(handlerArgs._args, object));     
-    else if (typeof object === 'object')
-      for (var prop in object)
-        iterateElements(object[prop], handler, handlerArgs);
-    return false;
-  }
-*/
-  // Creates a flat array from multiple arrays and / or primitives. Keeps subarrays.
-  // 1, 2, 3 -> [1, 2, 3]
-  // [1, 2, [3, 4, 5]], 6, 7, [8, 9] -> [1, 2, [3, 4, 5], 6, 7, 8, 9]
   function weave() {
     var array = [];
     for (var i = 0; i < arguments.length; i++) {
@@ -487,7 +450,7 @@
 
   function isElement(object) {
     return (
-      typeof HTMLElement === "object" ? object instanceof HTMLElement : //DOM2
+      typeof HTMLElement === "object" ? object instanceof HTMLElement :
       object && typeof object === "object" && object !== null && object.nodeType === 1 && typeof object.nodeName==="string"
     );
   }
