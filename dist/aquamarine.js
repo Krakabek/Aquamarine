@@ -293,52 +293,58 @@
   function match(color, pattern, value, integer) {
     if (typeof value === "string" || typeof value === "number") {
       value = integer ? parseInt(value) : parseFloat(value);
-      return isNaN(value) ? false : color.replace(pattern, value);
+      return isNaN(value) ? false : color.replace(pattern, "$1" + value + "$3");
     }
-    else return color.match(pattern)[0];
+    else return color.match(pattern)[2];
   }
 
-  // To-do: make sure regex include alpha
   function r(color, value) {
     if (isRgb(color) || isRgba(color))
-      return match(color, /[0-9]+(?=(\s*,\s*[0-9]+\s*,\s*[0-9]+(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$))/, value, true)
+      return match(color, /(rgba?\(\s*)([0-9]+)(.*)/, value, true)
     else return false;
   }
+
   function g(color, value) {
     if (isRgb(color) || isRgba(color))
-      return match(color, /[0-9]+(?=(\s*,\s*[0-9]+(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$))/, value, true);
+      return match(color, /(rgba?\(\s*[0-9]+\s*,\s*)([0-9]+)(.*)/, value, true);
     else return false;
   }
+
   function b(color, value) {
     if (isRgb(color) || isRgba(color))
-      return match(color, /[0-9]+(?=(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$)/, value, true);
+      return match(color, /(rgba?\(\s*[0-9]+\s*,\s*[0-9]+\s*,\s*)([0-9]+)(.*)/, value, true);
     else return false;
   }
+
   function h(color, value) {
     if (isHsv(color) || isHsva(color) || isHsl(color) || isHsla(color))
-      return match(color, /[0-9]+(\.[0-9]+)?(?=(\s*,\s*[0-9]+(\.[0-9]+)?%\s*,\s*[0-9]+(\.[0-9]+)?%(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$))/, value);
+      return match(color, /(hs\wa?\(\s*)([0-9]+)(.*)/, value);
     else return false;
   }
+
   function s(color, value) {
     if (isHsv(color) || isHsva(color) || isHsl(color) || isHsla(color))
-      return match(color, /[0-9]+(\.[0-9]+)?(?=(%\s*,\s*[0-9]+(\.[0-9]+)?%(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$))/, value);
+      return match(color, /(hs\wa?\(\s*[0-9]+\s*,\s*)([0-9]+)(?=%)(.*)/, value);
     else return false;
   }
+
   function l(color, value) {
     if (isHsl(color) || isHsla(color))
-      return match(color, /[0-9]+(\.[0-9]+)?(?=(%(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$))/, value);
+      return match(color, /(hsla?\(\s*[0-9]+\s*,\s*[0-9]+%\s*,\s*)([0-9]+)(?=%)(.*)/, value);
     else return false;
   }
+
   function v(color, value) {
     if (isHsv(color) || isHsva(color))
-      return match(color, /[0-9]+(\.[0-9]+)?(?=(%(\s*,\s*[0-9]+(\.[0-9]+)?)?\s*\)$))/, value);
+      return match(color, /(hsva?\(\s*[0-9]+\s*,\s*[0-9]+%\s*,\s*)([0-9]+)(?=%)(.*)/, value);
     else return false;
   }
+
   function a(color, value) {
     if (isName(color) || isHex(color) || isRgb(color) || isHsv(color) || isHsl(color))
       return 1;
     else if (isRgba(color) || isHsva(color) || isHsla(color))
-      return match(color, /[0-9]+(\.[0-9]+)?(?=(\s*\)$))/, value);
+      return match(color, /(a.*?)([0-9]+\.?[0-9]*?)(\)\s*$)/, value);
     else return false;
   }
 
@@ -359,28 +365,28 @@
     return gradient; 
   };
 
-  function input(element, instance) {
+  function input(element, self) {
     var value = element.value;
-    if (matches(element, instance.data.input.hex))
-      instance.color("#" + value);
-    else if (matches(element, instance.data.input.rgb.r))
-      instance.color(r(instance.rgb, value));
-    else if (matches(element, instance.data.input.rgb.g))
-      instance.color(g(instance.rgb, value));
-    else if (matches(element, instance.data.input.rgb.b))
-      instance.color(b(instance.rgb, value));
-    else if (matches(element, instance.data.input.hsv.h))
-      instance.color(h(instance.hsv, value));
-    else if (matches(element, instance.data.input.hsv.s))
-      instance.color(s(instance.hsv, value));
-    else if (matches(element, instance.data.input.hsv.v))
-      instance.color(v(instance.hsv, value));
-    else if (matches(element, instance.data.input.hsl.h))
-      instance.color(h(instance.hsl, value));
-    else if (matches(element, instance.data.input.hsl.s))
-      instance.color(s(instance.hsl, value));
-    else if (matches(element, instance.data.input.hsl.l))
-      instance.color(l(instance.hsl, value));
+    if (matches(element, self.data.input.hex))
+      self.color("#" + value);
+    else if (matches(element, self.data.input.rgb.r))
+      self.color(r(self.rgb, value));
+    else if (matches(element, self.data.input.rgb.g))
+      self.color(g(self.rgb, value));
+    else if (matches(element, self.data.input.rgb.b))
+      self.color(b(self.rgb, value));
+    else if (matches(element, self.data.input.hsv.h))
+      self.color(h(self.hsv, value));
+    else if (matches(element, self.data.input.hsv.s))
+      self.color(s(self.hsv, value));
+    else if (matches(element, self.data.input.hsv.v))
+      self.color(v(self.hsv, value));
+    else if (matches(element, self.data.input.hsl.h))
+      self.color(h(self.hsl, value));
+    else if (matches(element, self.data.input.hsl.s))
+      self.color(s(self.hsl, value));
+    else if (matches(element, self.data.input.hsl.l))
+      self.color(l(self.hsl, value));
     return value;
   }
 
