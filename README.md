@@ -67,28 +67,10 @@ Script looks for elements with ``data-aquamarine`` attribute and matches value o
 Allowed ``data-aqumarine`` values
 
 ```html	
-	data-aquamarine="hex"
-	
-	data-aquamarine="rgb-r"
-	
-	data-aquamarine="rgb-g"
-	
-	data-aquamarine="rgb-b"
-	
-	data-aquamarine="hsl-h"
-	
-	data-aquamarine="hsl-s"
-	
-	data-aquamarine="hsl-l"
-	
-	data-aquamarine="hsv-h"
-	
-	data-aquamarine="hsv-s"
-	
-	data-aquamarine="hsv-v"
+	hex, rgb-r, rgb-g, rgb-b, hsl-h, hsl-s, hsl-l, hsv-h, hsv-s, hsv-v
 ```
 	
-Don't forget to set ``min`` and ``max`` attributes, even on ``type="text"`` elements
+Don't forget to set ``min`` and ``max`` attributes on ``type="text"`` and ``type="range"`` inputs
 
 ## Alpha
 Alpha channels will be supported in future
