@@ -19,6 +19,10 @@ Initialize
 ```javascript
 var colorpicker = new Aquamarine()
 
+var colorpicker = new Aquamarine("#2CE7C5")
+
+var colorpicker = new Aquamarine("#fff")
+
 var colorpicker = new Aquamarine("royalblue")
 
 var colorpicker = new Aquamarine("rgb(242, 231, 31)")
