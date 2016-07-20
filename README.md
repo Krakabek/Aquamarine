@@ -3,19 +3,17 @@ Aquamarine is a customizable color picker plugin that support HSV / HSB color mo
 
 ## Demo
 
-HSV color model
-https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsv.html
+[HSV color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsv.html)
 
-HSL color model
-https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsl.html
+[HSL color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsl.html)
 
-RGB color model
-https://rawgit.com/vladmoroz/Aquamarine/master/demo/rgb.html
+[RGB color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/rgb.html)
 
-HSV and RGB color models
-https://rawgit.com/vladmoroz/Aquamarine/master/demo/rgb.html
+[HSV and RGB color models](https://rawgit.com/vladmoroz/Aquamarine/master/demo/rgb.html)
 
 ## Examples
+
+Initialize
 
 	var colorpicker = new Aquamarine()
 
