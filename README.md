@@ -26,9 +26,11 @@ Initialize
 	var colorpicker = new Aquamarine("hsl(210, 100%, 45%)")
 
 	var colorpicker = new Aquamarine("hsv(20, 75%, 100%)")
+```
 	
 Set and get color
 	
+```javascript
 	colorpicker.color("hotpink") // Set color to "hotpink". Aquamarine accepts any CSS color format
 	colorpicker.color() // "hotpink"
 	colorpicker.hex // "#ff69b4"
