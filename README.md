@@ -32,10 +32,15 @@ Set and get color
 	
 ```javascript
 	colorpicker.color("hotpink") // Set color to "hotpink". Aquamarine accepts any CSS color format
+	
 	colorpicker.color() // "hotpink"
+	
 	colorpicker.hex // "#ff69b4"
+	
 	colorpicker.rgb // "rgb(255, 105, 180)"
+	
 	colorpicker.hsl // "hsl(330, 100%, 71%)"
+	
 	colorpicker.hsv // "hsl(330, 59%, 100%)"
 ```
 	
