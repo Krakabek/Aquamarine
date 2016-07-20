@@ -28,8 +28,48 @@ Initialize
 Set and get color
 	
 	colorpicker.color("hotpink") // Set color to "hotpink". Aquamarine accepts any CSS color format
+	
 	colorpicker.color() // "hotpink"
+	
 	colorpicker.hex // "#ff69b4"
+	
 	colorpicker.rgb // "rgb(255, 105, 180)"
+	
 	colorpicker.hsl // "hsl(330, 100%, 71%)"
+	
 	colorpicker.hsv // "hsl(330, 59%, 100%)"
+	
+## HTML
+
+	<input type="text" autocomplete="off" data-aquamarine="hex"> // Example hex text input
+	
+	<input type="text" autocomplete="off" data-aquamarine="rgb-r" min="0" max="255"> // Example red in RGB color model text input
+	
+	<input type="text" autocomplete="off" data-aquamarine="rgb-g" min="0" max="255"> // Example green in RGB color model text input
+	
+	<input type="text" autocomplete="off" data-aquamarine="rgb-b" min="0" max="255"> // Example blue in RGB color model text input
+	
+	<input type="range" data-aquamarine="hsv-h" min="0" max="360"> // Example hue in HSV / HSB color model range input
+	
+	<input type="range" data-aquamarine="hsv-s" min="0" max="100"> // Example saturation in HSV / HSB color model range input
+	
+	<input type="range" data-aquamarine="hsv-v" min="0" max="100"> // Example brightness in HSV / HSB color model range input
+	
+Script looks for elements with ``data-aquamarine`` attribute and matches value of the attribute with color model parameter. You should use this attribute on ``type="range"`` and ``type="text"`` inputs.
+
+Allowed ``data-aqumarine`` values
+	data-aquamarine="hex"
+	data-aquamarine="rgb-r"
+	data-aquamarine="rgb-g"
+	data-aquamarine="rgb-b"
+	data-aquamarine="hsl-h"
+	data-aquamarine="hsl-s"
+	data-aquamarine="hsl-l"
+	data-aquamarine="hsv-h"
+	data-aquamarine="hsv-s"
+	data-aquamarine="hsv-v"
+	
+Don't forget to set ``min`` and ``max`` attributes, even on ``type="text"`` elements
+
+## Browser support
+Latest Chrome, Safari, Firefox, IE10+
