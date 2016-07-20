@@ -15,7 +15,7 @@ Aquamarine is a customizable color picker plugin that support HSV / HSB color mo
 
 Initialize
 
-=======
+
 ```javascript
 	var colorpicker = new Aquamarine()
 
@@ -35,7 +35,6 @@ Set and get color
 	colorpicker.rgb // "rgb(255, 105, 180)"
 	colorpicker.hsl // "hsl(330, 100%, 71%)"
 	colorpicker.hsv // "hsl(330, 59%, 100%)"
-=======
 ```
 	
 Set and get color
