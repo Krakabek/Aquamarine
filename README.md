@@ -1,5 +1,5 @@
 ## Aquamarine
-Aquamarine is a customizable color picker plugin that supports HSV / HSB color model
+Aquamarine is a customizable JavaScript color picker plugin that supports HSV / HSB color model
 
 ## Demo
 
