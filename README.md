@@ -45,6 +45,8 @@ Set and get color
 	
 ## HTML
 
+Script looks for elements with ``data-aquamarine`` attribute and matches value of the attribute with color model parameter. You should use this attribute on ``type="range"`` and ``type="text"`` inputs.
+
 ```html
 	<input type="text" data-aquamarine="hex" autocomplete="off"> // Example hex text input
 	
@@ -60,8 +62,6 @@ Set and get color
 	
 	<input type="range" data-aquamarine="hsv-v" min="0" max="100"> // Example brightness in HSV / HSB color model range input
 ```
-
-Script looks for elements with ``data-aquamarine`` attribute and matches value of the attribute with color model parameter. You should use this attribute on ``type="range"`` and ``type="text"`` inputs.
 
 Allowed ``data-aqumarine`` values
 
