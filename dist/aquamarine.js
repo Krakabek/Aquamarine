@@ -14,14 +14,16 @@
       input(this, self)
     });
     collect(this.data.input).listen("focusout", function() {
-      output (self)
+      output(self)
     });
-    collect(this.data.input.range).listen("click change", function() {
-      this.focus()
-    });
-    collect(this.data.input.text).listen("keydown", function(event) {
-      arrowControl(this, event)
-    });
+    if (this.data.allowFocusFix)
+      collect(this.data.input.range).listen("click change", function() {
+        this.focus()
+      });
+    if (this.data.allowArrows)
+      collect(this.data.input.text).listen("keydown", function(event) {
+        arrowControl(this, event)
+      });
   }
 
   function Collection() {
@@ -202,7 +204,6 @@
       color: "#2CE7C5",
       allowArrows: true,
       allowFocusFix: true,
-      allowValidation: true,
       outputFormat: "auto",
       preview: "[data-aquamarine=preview]",
       input: {
@@ -281,11 +282,11 @@
     return false;
   }
 
+  function isHex(color)  { return format(color) === "hex";  }
+  function isRgb(color)  { return format(color) === "rgb";  }
+  function isHsl(color)  { return format(color) === "hsl";  }
+  function isHsv(color)  { return format(color) === "hsv";  }
   function isName(color) { return format(color) === "name"; }
-  function isHex(color)  { return format(color) === "hex"; }
-  function isRgb(color)  { return format(color) === "rgb"; }
-  function isHsl(color)  { return format(color) === "hsl"; }
-  function isHsv(color)  { return format(color) === "hsv"; }
   function isRgba(color) { return format(color) === "rgba"; }
   function isHsla(color) { return format(color) === "hsla"; }
   function isHsva(color) { return format(color) === "hsva"; }
