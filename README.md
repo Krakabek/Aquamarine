@@ -37,7 +37,7 @@ Set and get color
 	
 	colorpicker.hsl // "hsl(330, 100%, 71%)"
 	
-	colorpicker.hsv // "hsl(330, 59%, 100%)"
+	colorpicker.hsv // "hsv(330, 59%, 100%)"
 	
 ## HTML
 
@@ -58,18 +58,31 @@ Set and get color
 Script looks for elements with ``data-aquamarine`` attribute and matches value of the attribute with color model parameter. You should use this attribute on ``type="range"`` and ``type="text"`` inputs.
 
 Allowed ``data-aqumarine`` values
+	
 	data-aquamarine="hex"
+	
 	data-aquamarine="rgb-r"
+	
 	data-aquamarine="rgb-g"
+	
 	data-aquamarine="rgb-b"
+	
 	data-aquamarine="hsl-h"
+	
 	data-aquamarine="hsl-s"
+	
 	data-aquamarine="hsl-l"
+	
 	data-aquamarine="hsv-h"
+	
 	data-aquamarine="hsv-s"
+	
 	data-aquamarine="hsv-v"
 	
 Don't forget to set ``min`` and ``max`` attributes, even on ``type="text"`` elements
+
+## Alpha
+Alpha channels will be supported in future
 
 ## Browser support
 Latest Chrome, Safari, Firefox, IE10+
