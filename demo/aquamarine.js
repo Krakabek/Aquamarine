@@ -199,7 +199,7 @@
 
   function settings() {
     return {
-      color: "#00FFBF",
+      color: "#2CE7C5",
       allowArrows: true,
       allowFocusFix: true,
       allowValidation: true,
@@ -281,11 +281,11 @@
     return false;
   }
 
+  function isHex(color)  { return format(color) === "hex";  }
+  function isRgb(color)  { return format(color) === "rgb";  }
+  function isHsl(color)  { return format(color) === "hsl";  }
+  function isHsv(color)  { return format(color) === "hsv";  }
   function isName(color) { return format(color) === "name"; }
-  function isHex(color)  { return format(color) === "hex"; }
-  function isRgb(color)  { return format(color) === "rgb"; }
-  function isHsl(color)  { return format(color) === "hsl"; }
-  function isHsv(color)  { return format(color) === "hsv"; }
   function isRgba(color) { return format(color) === "rgba"; }
   function isHsla(color) { return format(color) === "hsla"; }
   function isHsva(color) { return format(color) === "hsva"; }

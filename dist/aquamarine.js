@@ -199,7 +199,7 @@
 
   function settings() {
     return {
-      color: "#00FFBF",
+      color: "#2CE7C5",
       allowArrows: true,
       allowFocusFix: true,
       allowValidation: true,
