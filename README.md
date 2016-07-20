@@ -41,7 +41,7 @@ colorpicker.rgb // "rgb(255, 105, 180)"
 	
 colorpicker.hsl // "hsl(330, 100%, 71%)"
 	
-colorpicker.hsv // "hsl(330, 59%, 100%)"
+colorpicker.hsv // "hsv(330, 59%, 100%)"
 ```
 	
 ## HTML
