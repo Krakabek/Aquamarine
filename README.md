@@ -3,18 +3,17 @@ Aquamarine is a customizable color picker plugin that supports HSV / HSB color m
 
 ## Demo
 
-[HSV color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsv.html)
+[HSV](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsv.html)
 
-[HSL color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsl.html)
+[HSL](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsl.html)
 
-[RGB color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/rgb.html)
+[RGB](https://rawgit.com/vladmoroz/Aquamarine/master/demo/rgb.html)
 
-[HSV and RGB color models](https://rawgit.com/vladmoroz/Aquamarine/master/demo/multiple.html)
+[HSV and RGB](https://rawgit.com/vladmoroz/Aquamarine/master/demo/multiple.html)
 
 ## Examples
 
 Initialize
-
 
 ```javascript
 var colorpicker = new Aquamarine()
@@ -32,7 +31,6 @@ var colorpicker = new Aquamarine("hsl(210, 100%, 45%)")
 var colorpicker = new Aquamarine("hsv(20, 75%, 100%)")
 ```
 
-	
 Set and get color
 	
 ```javascript
@@ -69,13 +67,11 @@ Script looks for elements with ``data-aquamarine`` attribute and matches value o
 <input type="range" data-aquamarine="hsv-v" min="0" max="100"> // Example brightness in HSV / HSB color model range input
 ```
 
-
 Allowed ``data-aqumarine`` values
 
 ```html	
 hex, rgb-r, rgb-g, rgb-b, hsl-h, hsl-s, hsl-l, hsv-h, hsv-s, hsv-v
 ```
-
 
 Don't forget to set ``min`` and ``max`` attributes on ``type="text"`` and ``type="range"`` inputs
 
