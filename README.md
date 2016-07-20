@@ -85,4 +85,4 @@ Don't forget to set ``min`` and ``max`` attributes, even on ``type="text"`` elem
 Alpha channels will be supported in future
 
 ## Browser support
-Latest Chrome, Safari, Firefox, IE10+
+Chrome, Safari, Firefox, IE10+
