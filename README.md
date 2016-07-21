@@ -16,10 +16,10 @@ Aquamarine is a customizable JavaScript color picker plugin that supports HSV / 
 Initialize
 
 ```javascript
-var colorpicker = new Aquamarine()
+var colorpicker = new Aquamarine() // Initialize new instance. If no arguments passed, default color will be #2CE7C5
 ```
 ```javascript
-var colorpicker = new Aquamarine("#2CE7C5")
+var colorpicker = new Aquamarine("#EA394F")
 ```
 ```javascript
 var colorpicker = new Aquamarine("#fff")
@@ -41,11 +41,17 @@ Set and get color
 	
 ```javascript
 var colorpicker = new Aquamarine()
+
 colorpicker.color("hotpink") // Set color to "hotpink". Aquamarine accepts any CSS color format
+
 colorpicker.color() // "hotpink"
+
 colorpicker.hex // "#ff69b4"
+
 colorpicker.rgb // "rgb(255, 105, 180)"
+
 colorpicker.hsl // "hsl(330, 100%, 71%)"
+
 colorpicker.hsv // "hsv(330, 59%, 100%)"
 ```
 	
