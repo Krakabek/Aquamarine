@@ -46,6 +46,10 @@ colorpicker.color("hotpink") // Set color to "hotpink". Aquamarine accepts any C
 
 colorpicker.color() // "hotpink"
 
+colorpicker.color("rgb(255, 105, 180)")
+
+colorpicker.color() // "rgb(255, 105, 180)"
+
 colorpicker.hex // "#ff69b4"
 
 colorpicker.rgb // "rgb(255, 105, 180)"
