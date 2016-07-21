@@ -17,6 +17,8 @@ Initialize
 
 ```javascript
 var colorpicker = new Aquamarine()
+```
+```
 
 var colorpicker = new Aquamarine("#2CE7C5")
 
