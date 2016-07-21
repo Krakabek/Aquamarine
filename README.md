@@ -13,7 +13,7 @@ Aquamarine is a customizable JavaScript color picker plugin that supports HSV / 
 
 ## Examples
 
-Initialize
+*Initialize*
 
 ```javascript
 var colorpicker = new Aquamarine() // Initialize new instance. If no arguments passed, default color will be #2CE7C5
@@ -37,14 +37,14 @@ var colorpicker = new Aquamarine("hsl(210, 100%, 45%)")
 var colorpicker = new Aquamarine("hsv(20, 75%, 100%)")
 ```
 
-Set and get color
+*Set and get color*
 	
 ```javascript
 var colorpicker = new Aquamarine()
 
-colorpicker.color("hotpink") // Set color to "hotpink". Aquamarine accepts any CSS color format
+colorpicker.color("indigo") // Set color to "indigo"
 
-colorpicker.color() // "hotpink"
+colorpicker.color() // "indigo"
 
 colorpicker.color("rgb(255, 105, 180)")
 
@@ -58,7 +58,9 @@ colorpicker.hsl // "hsl(330, 100%, 71%)"
 
 colorpicker.hsv // "hsv(330, 59%, 100%)"
 ```
-	
+
+``color`` method accepts all legal CSS color values, plus hsv colors
+
 ## HTML
 
 Script looks for elements with ``data-aquamarine`` attribute and matches value of the attribute with color model parameter. You should use this attribute on ``type="range"`` and ``type="text"`` inputs.
