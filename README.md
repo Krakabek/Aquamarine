@@ -18,18 +18,22 @@ Initialize
 ```javascript
 var colorpicker = new Aquamarine()
 ```
-```
-
+```javascript
 var colorpicker = new Aquamarine("#2CE7C5")
-
+```
+```javascript
 var colorpicker = new Aquamarine("#fff")
-
+```
+```javascript
 var colorpicker = new Aquamarine("royalblue")
-
+```
+```javascript
 var colorpicker = new Aquamarine("rgb(242, 231, 31)")
-
+```
+```javascript
 var colorpicker = new Aquamarine("hsl(210, 100%, 45%)")
-
+```
+```javascript
 var colorpicker = new Aquamarine("hsv(20, 75%, 100%)")
 ```
 
