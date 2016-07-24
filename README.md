@@ -99,7 +99,7 @@ Script looks for elements with ``data-aquamarine`` attribute and matches value o
 <input type="range" data-aquamarine="hsv-v" min="0" max="100">
 ```
 
-Allowed ``data-aqumarine`` values
+Set ``data-aquamarine`` attribute to one of following values:
 
 ```html	
 hex, rgb-r, rgb-g, rgb-b, hsl-h, hsl-s, hsl-l, hsv-h, hsv-s, hsv-v
@@ -114,7 +114,8 @@ Notice that range input tracks respond to color change in the [demos](https://ra
 <div data-aquamarine="track-hsv-v"></div>
 ```
 
-Script will set element's background color as color changes.
+Script will set element's ``background-image`` as color changes.
+
 Set ``data-aquamarine`` attribute to one of following values:
 ```html	
 track-rgb-r, track-rgb-g, track-rgb-b, track-hsl-h, track-hsl-s, track-hsl-l, track-hsv-h, track-hsv-s, track-hsv-v
