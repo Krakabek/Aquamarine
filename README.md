@@ -122,7 +122,7 @@ Set ``data-aquamarine`` attribute to one of following values:
 track-rgb-r, track-rgb-g, track-rgb-b, track-hsl-h, track-hsl-s, track-hsl-l, track-hsv-h, track-hsv-s, track-hsv-v
 ```
 
-Inspect the demos to get a better feel of how to style the range inputs.
+Inspect the [demos](https://rawgit.com/vladmoroz/Aquamarine/master/demo/multiple.html) to get a better feel of how to style the range inputs.
 
 ## Alpha
 Alpha channels will be supported in future
