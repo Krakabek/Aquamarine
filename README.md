@@ -3,13 +3,13 @@ Aquamarine is a customizable JavaScript color picker plugin that supports HSV / 
 
 ## Demo
 
-[HSV / HSB](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsv.html)
+[HSV / HSB color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsv.html)
 
-[HSL](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsl.html)
+[HSL color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/hsl.html)
 
-[RGB](https://rawgit.com/vladmoroz/Aquamarine/master/demo/rgb.html)
+[RGB color model](https://rawgit.com/vladmoroz/Aquamarine/master/demo/rgb.html)
 
-[HSV / HSB and RGB](https://rawgit.com/vladmoroz/Aquamarine/master/demo/multiple.html)
+[HSV / HSB and RGB color models](https://rawgit.com/vladmoroz/Aquamarine/master/demo/multiple.html)
 
 ## Dependencies
 Aquamarine uses [Tinycolor](https://github.com/bgrins/TinyColor) for color conversion
