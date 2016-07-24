@@ -111,13 +111,14 @@ Don't forget to set ``min`` and ``max`` attributes on ``type="text"`` and ``type
 
 Notice that range input tracks respond to color change in the [demos](https://rawgit.com/vladmoroz/Aquamarine/master/demo/multiple.html). To get this effect, use a separate HTML element for input tracks:
 ```html
+<!-- Example brightness track in HSV / HSB color model range input -->
 <div data-aquamarine="track-hsv-v"></div>
 ```
 
 Script will set element's ``background-image`` as color changes.
 
 Set ``data-aquamarine`` attribute to one of following values:
-```html	
+```html
 track-rgb-r, track-rgb-g, track-rgb-b, track-hsl-h, track-hsl-s, track-hsl-l, track-hsv-h, track-hsv-s, track-hsv-v
 ```
 
