@@ -11,9 +11,20 @@ Aquamarine is a customizable JavaScript color picker plugin that supports HSV / 
 
 [HSV and RGB](https://rawgit.com/vladmoroz/Aquamarine/master/demo/multiple.html)
 
+## Dependencies
+Aquamarine uses [Tinycolor](https://github.com/bgrins/TinyColor) for color conversion
+
+## Setup
+Just include it in the page in a ``script`` tag along with [Tinycolor](https://github.com/bgrins/TinyColor)
+
+```html
+<script type='text/javascript' src='tinycolor.js'></script>
+<script type='text/javascript' src='aquamarine.js'></script>
+```
+
 ## Examples
 
-_Initialize_
+Initialize
 
 ```javascript
 var colorpicker = new Aquamarine() // Initialize new instance. If no arguments passed, default color will be #2CE7C5
@@ -37,7 +48,7 @@ var colorpicker = new Aquamarine("hsl(210, 100%, 45%)")
 var colorpicker = new Aquamarine("hsv(20, 75%, 100%)")
 ```
 
-_Set and get color_
+Set and get color
 
 ``color`` method accepts any legal CSS color values, plus HSV colors
 
