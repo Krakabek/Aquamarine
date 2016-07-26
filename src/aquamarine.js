@@ -81,7 +81,7 @@
   }
 
   function listen(events, handler) {
-    elements = this.elements;
+    var elements = this.elements;
     events.split(" ").forEach(function(event) {
       elements.forEach(function(element) {
         element.addEventListener(event, handler)
