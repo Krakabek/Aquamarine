@@ -462,6 +462,12 @@
     );
   }
 
-  window.Aquamarine = Aquamarine;
+  if ( typeof module != 'undefined' && module.exports ) {
+    module.exports = Aquamarine;
+  } else if ( typeof define == 'function' && define.amd ) {
+    define( function () { return Aquamarine; } );
+  } else {
+    window.Aquamarine = Aquamarine;
+  }
 
 }());
